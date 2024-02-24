@@ -5,22 +5,22 @@ import { JobController } from "../controller/job.controller";
 export const job_routes = express.Router();
 
 job_routes.post(
-    '/jobs',
+    '/create',
     JobController.createJob
 )
 
 job_routes.get(
-    '/jobs/:id',
+    '/getJobs/:id',
     JobController.getJob
 )
 
 job_routes.put(
-    '/jobs/:id',
+    '/updateJobs/:id',
     JobController.updateJob
 )
 
 job_routes.delete(
-    '/jobs/:id',
+    '/deleteJobs/:id',
     JobController.deleteJob
 )
 
