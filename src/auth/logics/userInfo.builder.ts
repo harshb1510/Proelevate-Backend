@@ -22,13 +22,7 @@ export class UserInfoFetchBuilder {
         return this;
     }
 
-    addPhoneNumber(phoneNumber: string){
-        if(phoneNumber){
-            this.query['phoneNumber'] = phoneNumber;
-        }
 
-        return this;
-    }
 
     buildQuery(){
         return this.query

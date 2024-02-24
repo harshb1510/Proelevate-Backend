@@ -7,9 +7,10 @@ import { IAuthUser } from "../../store/interfaces/auth/user.interface";
 import { UserInfoHelper } from "../helper/user.helper";
 import { IResponse } from "../../store/interfaces/response/success";
 import { IUser } from "../../store/interfaces/auth/user.interface";
+import { LogRequestResponse } from "../../store/logger/pino";
 
 export class UserInfoController {
-
+    @LogRequestResponse()
     static async getUserInfo(req: IAuth, res: Response) {
         try {
             const data = await userIdentificationValidatorSchema.validateAsync(req.query);
@@ -34,7 +35,8 @@ export class UserInfoController {
             return res.status(error.statusCode ? error.statusCode : EHTTPS_RESPONSE_CODE.SERVER_ERROR).json(response);
         }
     }
-
+    
+    @LogRequestResponse()
     static async updateInfo(req: IAuth, res: Response) {
         try {
             const data = await userUpdationValidationSchema.validateAsync(req.body);
@@ -60,6 +62,7 @@ export class UserInfoController {
         }
     }
 
+    @LogRequestResponse()
     static async getUsersByPointsAscending(req: IAuth, res: Response) {
         try {
             const users: IUser[] = await UserInfoHelper.getUsersByPointsAscending();

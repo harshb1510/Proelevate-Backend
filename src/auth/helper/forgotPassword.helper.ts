@@ -4,14 +4,14 @@ import { CustomError } from '../../store/error/customError';
 import { createAuthDbConnection } from '../../DB/authConnection';
 
 export class PasswordResetHelper {
-    static async resetPassword({ emailId, phoneNumber }) {
+    static async resetPassword({ emailId}) {
       try {
         const { success, authDBModels } = createAuthDbConnection();
         if (!success) {
           throw new Error('Unable to connect to Auth db');
         }
   
-        const searchFilter = emailId ? { emailId } : phoneNumber ? { phoneNumber } : null;
+        const searchFilter = emailId ? { emailId }  : null;
   
         const user = await authDBModels.User.findOne(searchFilter).lean();
         if (!user) {

@@ -110,7 +110,7 @@ export class LoginRegisterHelper {
 
             if (!searchFilter) {
                 throw new CustomError(
-                    "Please provide emailId or phoneNumber",
+                    "Please provide emailId ",
                     EHTTPS_RESPONSE_CODE.BAD_REQUEST
                 );
             }

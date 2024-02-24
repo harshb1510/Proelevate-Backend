@@ -11,9 +11,10 @@ import { IUser } from "../../store/interfaces/auth/user.interface";
 import { IError } from "../../store/interfaces/response/error";
 import { IResponse } from "../../store/interfaces/response/success";
 import { LoginRegisterHelper } from "../helper";
+import { LogRequestResponse } from "../../store/logger/pino";
 
 export class LoginRegisterController {
-
+    @LogRequestResponse()
     static async Register(req: Request, res: Response) {
         try {
             const data: IUser = await userValidatorSchema.validateAsync(
@@ -65,7 +66,7 @@ export class LoginRegisterController {
         }
     }
 
-
+    @LogRequestResponse()
     static async Login(req: Request, res: Response) {
         try {
             const { emailId,  password } =
@@ -106,7 +107,7 @@ export class LoginRegisterController {
     }
 
 
-
+    @LogRequestResponse()
     static async checkTokenExpiryController(req: Request, res: Response) {
         try {
             const { token } = req.params;
@@ -145,7 +146,7 @@ export class LoginRegisterController {
         }
     }
 
-
+    @LogRequestResponse()
     static async resetPasswordController(req: Request, res: Response) {
         try {
             const { token } = req.params;
@@ -187,7 +188,7 @@ export class LoginRegisterController {
         }
     }
 
-
+    @LogRequestResponse()
     static async createResetUrlController(req: Request, res: Response) {
         try {
             const data = await userIdentificationValidatorSchema.validateAsync(

@@ -3,8 +3,10 @@ import { Request, Response } from "express";
 import { IJob } from "../../store/interfaces/job/job.interface";
 import { EHTTPS_RESPONSE_CODE } from "../../store/enums/HTTP_Response_Code/responseCode.enum";
 import { JobHelper } from "../helper/job.helper";
+import { LogRequestResponse } from "../../store/logger/pino";
 
 export class JobController {
+    @LogRequestResponse()
     static async createJob(req: Request, res: Response) {
         try {
             const jobData: IJob = req.body;
@@ -15,6 +17,7 @@ export class JobController {
         }
     }
 
+    @LogRequestResponse()
     static async getJob(req: Request, res: Response) {
         try {
             const jobId: string = req.params.id;
@@ -25,6 +28,7 @@ export class JobController {
         }
     }
 
+    @LogRequestResponse()
     static async updateJob(req: Request, res: Response) {
         try {
             const jobId: string = req.params.id;
@@ -36,6 +40,7 @@ export class JobController {
         }
     }
 
+    @LogRequestResponse()
     static async deleteJob(req: Request, res: Response) {
         try {
             const jobId: string = req.params.id;
@@ -46,6 +51,7 @@ export class JobController {
         }
     }
 
+    @LogRequestResponse()
     static async addUserToJob(req: Request, res: Response) {
         try {
             const jobId: string = req.params.id;
