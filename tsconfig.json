@@ -85,6 +85,9 @@
         "types": ["node"],
         "skipLibCheck": true
     },
+    "ts-node": {
+        "esm": true
+    },
     "exclude": ["node_modules", "build"],
     "include": ["./migrations/**/*", "src/**/*", "newrelic.js"]
 }
