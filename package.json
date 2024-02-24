@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --pretty --transpile-only -r newrelic ./src/index.ts",
     "build": "rm -rf ./build/ && tsc -p tsconfig.json && cp -r ./src/store/templates ./build/src/store/templates",
-    "start": "node --experimental-loader=newrelic/esm-loader.mjs build/src/index.js",
+    "start": "node build/src/index.js",
     "resizeImages": "ts-node-dev ./src/aws/script/resizeExistingImages.ts"
   },
   "keywords": [],
