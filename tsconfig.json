@@ -80,7 +80,7 @@
             "es6"
         ],
         "sourceMap": false,
-        "outDir": "build",
+        "outDir": "dist",
         "allowJs": true,
         "types": ["node"],
         "skipLibCheck": true
