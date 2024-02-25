@@ -40,8 +40,8 @@ This project is a backend application that provides APIs for managing user authe
    - Base URL: `http://localhost:PORT/v1`
 
 ## Usage
- Deployment: The backend is deployed on netlify
-  - Deployed Link:
+ Deployment: The backend is deployed on render
+  - Deployed Link:https://proelevate-backend.onrender.com/
    
 
 ## API Documentation
