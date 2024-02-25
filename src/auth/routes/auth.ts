@@ -8,7 +8,7 @@ import { LikeController } from "../controller/like.controller";
 export const auth_routes = express.Router();
 
 auth_routes.post("/login", LoginRegisterController.Login);
-
+auth_routes.post("/register", LoginRegisterController.Register);
 
 auth_routes.get(
     "/user/info",
