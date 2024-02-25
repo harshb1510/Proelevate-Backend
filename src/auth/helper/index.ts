@@ -11,7 +11,6 @@ import fs from "fs";
 import path from "path";
 import { replaceTemplate, sendEmail } from "../../store/notification/sendMail";
 
-
 export class LoginRegisterHelper {
     static async RegisterHelper(data: IUser): Promise<IUser> {
         try {
@@ -54,17 +53,14 @@ export class LoginRegisterHelper {
             const user: IUser = await authDBModels.User.findOne(
                 searchFilter
             ).lean();
-
+          
             if (!user) {
                 throw new CustomError(
                     "User Not found",
                     EHTTPS_RESPONSE_CODE.UNAUTHORIZED_ACCESS
                 );
             }
-            const access = await authDBModels.Access.findOne({
-                _id: user.roleToken,
-            }).lean();
-
+           
             const passwordMatch = await bcrypt.compare(
                 password,
                 user.password as string
@@ -86,11 +82,10 @@ export class LoginRegisterHelper {
             const bearerToken = jwt.sign(userInfo, user.firebaseToken, {
                 expiresIn: "10d", // Token expires in 10 days, adjust as needed
             });
-
+            
             return {
                 user,
                 bearerToken,
-                access,
             };
         } catch (error) {
             throw error;

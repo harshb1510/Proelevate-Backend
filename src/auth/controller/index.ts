@@ -20,12 +20,12 @@ export class LoginRegisterController {
             const data: IUser = await userValidatorSchema.validateAsync(
                 req.body
             );
-            console.log(data)
+            
 
             const userInfo: IUser = await LoginRegisterHelper.RegisterHelper(
                 data
             );
-            console.log(userInfo)
+        
 
             const response: IResponse = {
                 data: {
@@ -67,44 +67,45 @@ export class LoginRegisterController {
     }
 
     @LogRequestResponse()
-    static async Login(req: Request, res: Response) {
-        try {
-            const { emailId,  password } =
-                await userLoginValidatorSchema.validateAsync(req.body);
+   static async Login(req: Request, res: Response) {
+    try {
+        const { emailId, password } =
+            await userLoginValidatorSchema.validateAsync(req.body);
 
-            const { user, bearerToken, access } =
-                await LoginRegisterHelper.LoginHelper({
-                    emailId,
-                    password
-                });
-
-            res.status(EHTTPS_RESPONSE_CODE.OK).json({
-                token: user._id,
-                bearerToken,
-                data: {
-                    Name: user.Name,
-                    emailId: user.emailId,
-                    points: user.points,
-                    github: user.github,
-                },
+        const { user, bearerToken } =
+            await LoginRegisterHelper.LoginHelper({
+                emailId,
+                password
             });
-        } catch (error) {
-            let response: IError = {
-                data: [],
-                message: error.message,
-                meta: {
-                    error: true,
-                },
-            };
-            return res
-                .status(
-                    error.statusCode
-                        ? error.statusCode
-                        : EHTTPS_RESPONSE_CODE.SERVER_ERROR
-                )
-                .json(response);
-        }
+            
+        res.status(EHTTPS_RESPONSE_CODE.OK).json({
+            token: user._id,
+            bearerToken,
+            data: {
+                Name: user.Name,
+                emailId: user.emailId,
+                points: user.points,
+                github: user.github,
+            },
+        });
+    } catch (error) {
+        let response: IError = {
+            data: [],
+            message: error.message,
+            meta: {
+                error: true,
+            },
+        };
+        return res
+            .status(
+                error.statusCode
+                    ? error.statusCode
+                    : EHTTPS_RESPONSE_CODE.SERVER_ERROR
+            )
+            .json(response);
     }
+}
+
 
 
     @LogRequestResponse()

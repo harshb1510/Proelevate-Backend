@@ -66,7 +66,6 @@ export class UserInfoController {
     static async getUsersByPointsAscending(req: IAuth, res: Response) {
         try {
             const users: IUser[] = await UserInfoHelper.getUsersByPointsAscending();
-
             return res.status(EHTTPS_RESPONSE_CODE.OK).json(users);
         } catch (error) {
             return res.status(EHTTPS_RESPONSE_CODE.SERVER_ERROR).json({ error: error.message });

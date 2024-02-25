@@ -36,7 +36,6 @@ export class UserInfoHelper {
 
             return {
                 ...userDetails,
-                access: userDetails.roleToken["access"],
                 roleToken: undefined,
             };
         } catch (error) {
@@ -114,11 +113,4 @@ export class UserInfoHelper {
             throw error;
         }
     }
-
-    
 }
-
-
-
-
-

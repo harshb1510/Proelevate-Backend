@@ -1,8 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { IUser } from "../../interfaces/auth/user.interface";
 
-
-
 export const userSchema = new mongoose.Schema<IUser>(
     {
         Name: {
@@ -22,8 +20,7 @@ export const userSchema = new mongoose.Schema<IUser>(
         roleToken: {
             type: Schema.Types.ObjectId,
             required: false,
-            default: new mongoose.Types.ObjectId("65300d1c64d4f39fd4e2a371"),
-            ref: "AccessToken",
+            default: new mongoose.Types.ObjectId("65d9c92ff102e751303fc07e"),
         },
         resetPasswordToken: {
             type: String,
@@ -37,14 +34,18 @@ export const userSchema = new mongoose.Schema<IUser>(
             type: String,
             required: true,
         },
-        points:{
+        points: {
             type: Number,
             required: false,
-            default: 0
+            default: 0,
         },
-        github:{
+        github: {
             type: String,
             required: false,
+        },
+        likedUsers: {
+            type: [Schema.Types.ObjectId],
+            default: [],
         },
     },
     {

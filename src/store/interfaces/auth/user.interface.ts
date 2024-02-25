@@ -12,6 +12,7 @@ export interface IUser {
     firebaseToken: string;
     github?: string;
     points?: number;
+    likedUsers?: mongoose.Types.ObjectId[];
 }
 
 export interface IAuthUser {

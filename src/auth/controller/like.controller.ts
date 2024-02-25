@@ -11,9 +11,9 @@ export class LikeController {
         try {
             const { userId, likedUserId }: ILikeRequest = await likeValidatorSchema.validateAsync(req.body);
             
-            await LikeHelper(userId, likedUserId);
+            const message = await LikeHelper(userId, likedUserId);
 
-            return res.status(EHTTPS_RESPONSE_CODE.OK).json({ message: "User liked successfully" });
+            return res.status(EHTTPS_RESPONSE_CODE.OK).json({ message });
         } catch (error) {
             return res.status(EHTTPS_RESPONSE_CODE.SERVER_ERROR).json({ error: error.message });
         }

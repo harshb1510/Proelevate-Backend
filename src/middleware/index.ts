@@ -6,19 +6,17 @@ import { createAuthDbConnection } from "../DB/authConnection";
 import { EHTTPS_RESPONSE_CODE } from "../store/enums/HTTP_Response_Code/responseCode.enum";
 import { IAuth } from "../store/interfaces/auth/AuthenticationRequest.interface";
 import { IUser } from "../store/interfaces/auth/user.interface";
-import { IAccess } from "../store/interfaces/auth/access.interface";
 import { CustomError } from "../store/error/customError";
-import { EAccess } from "../store/enums/auth/accessToken.enum";
 dotenv.config();
 
-export function authenticateToken(roles = [ EAccess.USER]) {
+export function authenticateToken(roles = ["USER"]) {
   return async (
     req: IAuth,
     res: Response,
-    next: NextFunction) => {
+    next: NextFunction
+  ) => {
     try {
-
-      if (!roles.includes(EAccess.NOT_VALIDATED)) {
+      if (!roles.includes("NOT_VALIDATED")) {
         let bearerToken = req.header("Authorization");
         const token = req.header("token");
 
@@ -45,15 +43,12 @@ export function authenticateToken(roles = [ EAccess.USER]) {
         if (!user) {
           throw new CustomError("User not found", EHTTPS_RESPONSE_CODE.NOT_FOUND);
         }
-
-        const access: IAccess = await authDBModels.Access.findOne({ _id: user.roleToken }).lean();
-
+        
         jwt.verify(bearerToken, user.firebaseToken, (err, user) => {
-        const accessValue: EAccess = access.access as EAccess;
-
-        if (!roles.includes(accessValue)) {
-            throw new CustomError("Access Denied", EHTTPS_RESPONSE_CODE.UNAUTHORIZED_ACCESS);
-        }
+          if (err) {
+            throw new CustomError("Invalid Token", EHTTPS_RESPONSE_CODE.UNAUTHORIZED_ACCESS);
+          }
+          next();
         });
       } else {
         next();

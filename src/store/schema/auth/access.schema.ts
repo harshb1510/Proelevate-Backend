@@ -1,13 +1,11 @@
 import mongoose from "mongoose";
-import { IAccess } from "../../interfaces/auth/access.interface";
 
-export const accessSchema = new mongoose.Schema<IAccess> ({
+export const accessSchema = new mongoose.Schema({
     token: {
         type: String,
         required: true,
         index: true,
-    }
-},
-{
-  timestamps: true
+    },
+}, {
+    timestamps: true
 });
