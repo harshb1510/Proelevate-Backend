@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.auth_routes = void 0;
+const express_1 = __importDefault(require("express"));
+const index_1 = require("../controller/index");
+const user_controller_1 = require("../controller/user.controller");
+const middleware_1 = require("../../middleware");
+const like_controller_1 = require("../controller/like.controller");
+exports.auth_routes = express_1.default.Router();
+exports.auth_routes.post("/login", index_1.LoginRegisterController.Login);
+exports.auth_routes.get("/user/info", (0, middleware_1.authenticateToken)(), user_controller_1.UserInfoController.getUserInfo);
+exports.auth_routes.put("/user/update", (0, middleware_1.authenticateToken)(), user_controller_1.UserInfoController.updateInfo);
+exports.auth_routes.get("/user/restUrl/authenticate/:token", index_1.LoginRegisterController.checkTokenExpiryController);
+exports.auth_routes.post("/user/resetPassword/:token", index_1.LoginRegisterController.resetPasswordController);
+exports.auth_routes.post("/user/forgotPassword", index_1.LoginRegisterController.createResetUrlController);
+exports.auth_routes.get('/getUsers', (0, middleware_1.authenticateToken)(), user_controller_1.UserInfoController.getUsersByPointsAscending);
+exports.auth_routes.post('/likeUser', (0, middleware_1.authenticateToken)(), like_controller_1.LikeController.likeUser);
