@@ -44,15 +44,30 @@ export class JobHelper {
         }
     }
 
-    static async addUserToJob(jobId: string, userId: string): Promise<IJob> {
+    static async addUserToJob(jobId: string, userId: string): Promise<{ job: IJob, message: string }> {
         try {
-            const job: IJob = await JobModel.findByIdAndUpdate(jobId, { $push: { usersApplied: userId } }, { new: true });
+            const job: IJob = await JobModel.findByIdAndUpdate(
+                jobId,
+                { $addToSet: { usersApplied: userId } }, // $addToSet ensures that userId is only added if it doesn't already exist in the array
+                { new: true }
+            );
+    
             if (!job) {
                 throw new Error("Job not found");
             }
-            return job;
+    
+            // Check if the user ID already exists in the usersApplied array
+            if (job.usersApplied.includes(userId)) {
+                // User already applied, return the job as it is along with a message
+                return { job, message: "User already applied" };
+            }
+    
+            // Return the updated job along with a message indicating successful application
+            return { job, message: "User applied successfully" };
         } catch (error) {
             throw error;
         }
     }
+    
+    
 }

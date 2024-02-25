@@ -56,10 +56,10 @@ export class JobController {
         try {
             const jobId: string = req.params.id;
             const userId: string = req.body.userId;
-            const job: IJob = await JobHelper.addUserToJob(jobId, userId);
-            return res.status(EHTTPS_RESPONSE_CODE.OK).json(job);
+            const { job, message } = await JobHelper.addUserToJob(jobId, userId);
+            return res.status(EHTTPS_RESPONSE_CODE.OK).json({ job, message });
         } catch (error) {
             return res.status(EHTTPS_RESPONSE_CODE.SERVER_ERROR).json({ error: error.message });
         }
-    }
+    }    
 }
